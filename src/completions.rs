@@ -19,7 +19,6 @@ pub struct Completion {
 pub struct CompletionChoice {
     pub text: String,
     pub index: u16,
-    pub logprobs: Option<u16>,
     pub finish_reason: String,
 }
 
@@ -82,15 +81,6 @@ pub struct CompletionRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(setter(skip), default)] // skipped until properly implemented
     pub stream: Option<bool>,
-    /// Include the log probabilities on the logprobs most likely tokens, as well the chosen tokens.
-    /// For example, if logprobs is 5, the API will return a list of the 5 most likely tokens.
-    /// The API will always return the `logprob` of the sampled token, so there may be up to `logprobs+1` elements in the response.
-    ///
-    /// The maximum value for `logprobs` is 5.
-    /// If you need more than this, please contact us through our Help center and describe your use case.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default)]
-    pub logprobs: Option<u8>,
     /// Echo back the prompt in addition to the completion
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default)]
